@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>pydeck</title>
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.14.0/dist/maplibre-gl.css" />
+    <script src='https://cdn.jsdelivr.net/npm/@deck.gl/jupyter-widget@~9.2.*/dist/index.js'></script>
+    <link rel="stylesheet" href=https://cdn.jsdelivr.net/npm/@deck.gl/widgets@~9.2.*/dist/stylesheet.css />
+    <style>
+    body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#deck-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+#deck-container canvas {
+  z-index: 1;
+  background: none;
+}
+
+#deck-container .error_text {
+  color: red;
+  background: none;
+  position: absolute;
+  z-index: 100;
+}
+    </style>
+  </head>
+  <body>
+    <div id="deck-container">
+    </div>
+  </body>
+  <script>
+    const container = document.getElementById('deck-container');
+    const jsonInput = {
+  "initialViewState": {
+    "bearing": -10,
+    "latitude": 13.7563,
+    "longitude": 100.5018,
+    "maxZoom": 16,
+    "minZoom": 8,
+    "pitch": 45,
+    "zoom": 11
+  },
+  "layers": [
+    {
+      "@@type": "ScatterplotLayer",
+      "data": [
+        {
+          "category": "temple",
+          "lat": 13.75,
+          "lon": 100.4913,
+          "name": "Grand Palace",
+          "visitors": 20000
+        },
+        {
+          "category": "temple",
+          "lat": 13.7437,
+          "lon": 100.4855,
+          "name": "Wat Arun",
+          "visitors": 15000
+        },
+        {
+          "category": "market",
+          "lat": 13.7999,
+          "lon": 100.5503,
+          "name": "Chatuchak Market",
+          "visitors": 35000
+        },
+        {
+          "category": "park",
+          "lat": 13.7317,
+          "lon": 100.5418,
+          "name": "Lumphini Park",
+          "visitors": 10000
+        },
+        {
+          "category": "mall",
+          "lat": 13.7459,
+          "lon": 100.533,
+          "name": "Siam Paragon",
+          "visitors": 40000
+        },
+        {
+          "category": "nightlife",
+          "lat": 13.758,
+          "lon": 100.4977,
+          "name": "Khao San Road",
+          "visitors": 25000
+        }
+      ],
+      "getFillColor": [
+        255,
+        140,
+        0,
+        180
+      ],
+      "getLineColor": [
+        0,
+        0,
+        0
+      ],
+      "getPosition": "@@=[lon, lat]",
+      "getRadius": "@@=visitors / 20",
+      "id": "poi-layer",
+      "pickable": true,
+      "stroke": true
+    }
+  ],
+  "mapProvider": "carto",
+  "mapStyle": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+  "views": [
+    {
+      "@@type": "MapView",
+      "controller": true
+    }
+  ]
+};
+    const tooltip = {'html': '<b>{name}</b><br>Visitors: {visitors}'};
+    const customLibraries = null;
+    const configuration = null;
+
+    const deckInstance = createDeck({
+                  container,
+      jsonInput,
+      tooltip,
+      customLibraries,
+      configuration,
+          });
+
+  </script>
+</html>
